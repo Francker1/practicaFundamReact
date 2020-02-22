@@ -1,7 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
-import Rutas from './components/routing/Rutas';
+import Home from './components/home/Home';
 
-render(<Rutas />, document.getElementById('root'));
+render(<Home />, document.getElementById('root'));
 
