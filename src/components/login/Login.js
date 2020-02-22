@@ -76,7 +76,7 @@ export default class Login extends Component{
 
                 <div>
                     <p>Aún no estás registrado? 
-                        <Link to="/register">Registrarse</Link>
+                        <Link to="/registro">Registrarse</Link>
                     </p>                    
                 </div>
             </Container>

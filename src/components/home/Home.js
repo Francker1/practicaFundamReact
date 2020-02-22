@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from "../login/Login";
 import Register from "../register/Register";
+import Advertisments from "../ads/Ads";
 
 import {
     BrowserRouter as Router,
@@ -22,7 +23,10 @@ export default class Home extends Component {
                         <Link to="/login">Login</Link>
                     </li>
                     <li>
-                        <Link to="/register">Register</Link>
+                        <Link to="/registro">Registro</Link>
+                    </li>
+                    <li>
+                        <Link to="/anuncios">Anuncios</Link>
                     </li>
                     </ul>
 
@@ -35,8 +39,11 @@ export default class Home extends Component {
                         <Route path="/login">
                             <Login />
                         </Route>
-                        <Route path="/register">
+                        <Route path="/registro">
                             <Register />
+                        </Route>
+                        <Route path="/anuncios">
+                            <Advertisments />
                         </Route>
                     </Switch>
                 </div>
