@@ -26,7 +26,7 @@ export default class Home extends Component {
                         <Link to="/registro">Registro</Link>
                     </li>
                     <li>
-                        <Link to="/anuncios">Anuncios</Link>
+                        <Link to="/ads">Anuncios</Link>
                     </li>
                     </ul>
 
@@ -42,7 +42,7 @@ export default class Home extends Component {
                         <Route path="/registro">
                             <Register />
                         </Route>
-                        <Route path="/anuncios">
+                        <Route path="/ads">
                             <Advertisments />
                         </Route>
                     </Switch>
