@@ -3,24 +3,29 @@ import axios from "axios";
 import '../routing/Rutas.css';
 
 export default class Advertisments extends Component {
-    state = {
-        ads: []
-      }
-    
-      componentDidMount() {
-        axios.get("http://34.89.93.186:8080/apiv1/anuncios",{withCredentials:true})
-          .then(res => {
-            const ads = res.data;
+    constructor(props){
+        super(props);
+        this.state = {
+            ads: []
+        }
+    }
+
+    componentDidMount = () => {
+        axios.defaults.withCredentials = true;
+        axios.get('http://34.89.93.186:8080/apiv1/anuncios')
+            .then(res => {
+            const ads = res.data.results;
+            console.log(ads);
             this.setState({ ads });
-          })
-        //console.log("a ver k pasa");
-      }
-    
-      render() {
+        })
+    }
+
+    render() {
+        const { ads } = this.state;
         return (
-          <ul>
-            { this.state.ads.map(ad => <li>{ad.name}</li>)}
-          </ul>
+            <ul>
+                { ads.map(ad => <li key={ad._id}>{ad.name}</li>)}
+            </ul>
         )
-      }
+    }
 }
