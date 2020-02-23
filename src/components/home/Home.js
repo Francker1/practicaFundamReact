@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from "../login/Login";
 import Register from "../register/Register";
 import Advertisments from "../ads/Ads";
+//import Child from "../ads/AdsDetail";
 
 import {
     BrowserRouter as Router,
@@ -45,6 +46,9 @@ export default class Home extends Component {
                         <Route path="/ads">
                             <Advertisments />
                         </Route>
+                        {/* <Route path="/detail/:id">
+                            <Child />
+                        </Route> */}
                     </Switch>
                 </div>
             </Router>
