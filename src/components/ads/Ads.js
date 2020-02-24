@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import AdDetail from "./AdsDetail";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Ads.css';
 
 export default class Advertisments extends Component {
@@ -29,27 +24,23 @@ export default class Advertisments extends Component {
     render() {
         const { ads } = this.state;
         return (
-            <Router>
-                <div className="list-ads">
-                    { ads.map(ad => 
-                        <Link key={ad._id} to={`/detail/${ad._id}`}>
-                            <ul>
-                                <h4>{ad.name}</h4>
-                                <li>precio: {ad.price}</li>
-                                <li>desc: {ad.description}</li>
-                                <li>type: {ad.type}</li>
-                                <li>photo: {ad.photo}</li>
-                                <li>created: {ad.createdAt}</li>
-                                <li>updated: {ad.updatedAt}</li>
-                                <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
-                            </ul>
-                        </Link>
-                    )}
-                </div>
 
-                <Route path={`/detail/:id`} component={AdDetail}/>
-            
-            </Router>
+            <div className="list-ads">
+                { ads.map(ad => 
+                    <Link key={ad._id} to={`/detail/${ad._id}`}>
+                        <ul>
+                            <h4>{ad.name}</h4>
+                            <li>precio: {ad.price}</li>
+                            <li>desc: {ad.description}</li>
+                            <li>type: {ad.type}</li>
+                            <li>photo: {ad.photo}</li>
+                            <li>created: {ad.createdAt}</li>
+                            <li>updated: {ad.updatedAt}</li>
+                            <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                        </ul>
+                    </Link>
+                )}
+            </div>            
         )
     }
 }
