@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Login from "../login/Login";
 import Register from "../register/Register";
 import Advertisments from "../ads/Ads";
-//import Child from "../ads/AdsDetail";
+import AdDetail from "../ads/AdsDetail";
+import Filter from "../filters/Filters";
 
 import {
     BrowserRouter as Router,
@@ -17,22 +18,20 @@ export default class Home extends Component {
             <Router>
                 <div>
                     <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                        <Link to="/registro">Registro</Link>
-                    </li>
-                    <li>
-                        <Link to="/ads">Anuncios</Link>
-                    </li>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                        <li>
+                            <Link to="/registro">Registro</Link>
+                        </li>
+                        <li>
+                            <Link to="/ads">Anuncios</Link>
+                        </li>
                     </ul>
-
                     <hr />
-
                     <Switch>
                         <Route exact path="/">
                             <Front />
@@ -44,11 +43,10 @@ export default class Home extends Component {
                             <Register />
                         </Route>
                         <Route path="/ads">
+                            <Filter />
                             <Advertisments />
                         </Route>
-                        {/* <Route path="/detail/:id">
-                            <Child />
-                        </Route> */}
+                        <Route path={`/detail/:id`} component={AdDetail}/>
                     </Switch>
                 </div>
             </Router>
