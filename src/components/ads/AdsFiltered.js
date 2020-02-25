@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ParamsSearch({ location }) {
+export default function AdsFiltered({ location }) {
     let params = new URLSearchParams(location.search);
 
     //console.log(params.get("name"));

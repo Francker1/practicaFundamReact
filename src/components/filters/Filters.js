@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import { Container, Row, Form, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import { Container, Row, Form, Col, Button } from "react-bootstrap";
+//import { Link } from "react-router-dom";
+//import { hashHistory } from 'react-router';
+import {withRouter} from "react-router-dom";
   
-export default class Filter extends Component{
+export class Filter extends Component{
 
-    constructor(props){
-        super(props);
-        this.state = {
+    state = {
             name: "",
             tag: "",
             min: "",
             max: "",
             type: "true"
         }
-    }
+    
 
     handleChangeName    = ev => this.setState({ name: ev.target.value });
     handleChangeTag     = ev => this.setState({ tag: ev.target.value });
@@ -22,13 +21,19 @@ export default class Filter extends Component{
     handleChangeMax     = ev => this.setState({ max: ev.target.value });
     handleChangeType    = ev => this.setState({ type: ev.target.value });
 
+    handleSubmit = ev => {
+        ev.preventDefault();
+
+        //this.props.history.push("/filter");
+        this.props.history.push("/filter");
+    }
     render(){
         return(
             <Container>
                 <Row>
                 <Col className="mb-4"><h4>Filtrar anuncios</h4></Col>
                 </Row>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Label>¿Qué estas buscando?</Form.Label>
@@ -96,7 +101,11 @@ export default class Filter extends Component{
                         </Form.Group>
                     </Form.Row>
 
-                    <Link to={{ pathname: "/filter", search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&price=${this.state.min}-${this.state.max}` }}>Filtrar</Link>
+                    <Button variant="info" type="submit" size="lg" className="col my-4">
+                        Filtrar
+                    </Button>
+
+                    {/* <Link to={{ pathname: "/filter", search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&price=${this.state.min}-${this.state.max}` }}>Filtrar</Link> */}
                 </Form>
                 <hr/>
 
@@ -107,3 +116,5 @@ export default class Filter extends Component{
         );
     }
 }
+
+export default withRouter(Filter);
