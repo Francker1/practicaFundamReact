@@ -16,7 +16,7 @@ export default class Advertisments extends Component {
         axios.get('http://34.89.93.186:8080/apiv1/anuncios'
         ).then(res => {
             const ads = res.data.results;
-            console.log(ads);
+            //console.log(ads);
             this.setState({ ads });
         }).catch(err => {console.log(err)})
     }

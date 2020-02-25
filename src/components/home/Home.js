@@ -4,6 +4,7 @@ import Register from "../register/Register";
 import Advertisments from "../ads/Ads";
 import AdDetail from "../ads/AdsDetail";
 import Filter from "../filters/Filters";
+import ParamsSearch from "../ads/AdsFiltered";
 
 import {
     BrowserRouter as Router,
@@ -47,6 +48,7 @@ export default class Home extends Component {
                             <Advertisments />
                         </Route>
                         <Route path={`/detail/:id`} component={AdDetail}/>
+                        <Route path="/filter" component={ParamsSearch} />
                     </Switch>
                 </div>
             </Router>
