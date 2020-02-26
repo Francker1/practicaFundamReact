@@ -1,29 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from "axios";
+import { Link } from "react-router-dom";
+import './Ads.css';
 
-export default function AdsFiltered({ location }) {
-    let params = new URLSearchParams(location.search);
 
-    //console.log(params.get("name"));
-    return (
-        <div>
+export default class AdsFiltered extends Component {
 
-        <Child 
-            name={params.get("name")} 
-            venta={params.get("venta")}
-            tag={params.get("tag")}
-            price={params.get("price")}
-        />
-        
-        </div>
-    );
-}
+    constructor(props){
+        super(props);
+        this.state = {
+            adsF: []
+        }
+    }
 
-function Child({ name, venta, tag, price }) {
-    return (
-        <div>
-            <h3>
-            The <code>name</code> in the query string is "{name}". and <code>venta</code> is "{venta}" y el <code>tag</code> es "{tag}" y el <code>precio</code> es "{price}"
-            </h3>
-        </div>
-    );
+    componentDidMount = () => {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const adName = (params.get("name")) ? `name=${params.get("name")}` : "" ;
+    const adVenta = (params.get("venta")) ? `venta=${params.get("venta")}` : "" ;
+    const adTag = (params.get("tag")) ? `tag=${params.get("tag")}` : "" ;
+    const adPrice = (params.get("pricemin")) || (params.get("pricemax")) ? `price=${params.get("pricemin")}-${params.get("pricemax")}` : "";
+
+    axios.defaults.withCredentials = true;
+
+    
+    axios.get(`http://34.89.93.186:8080/apiv1/anuncios?${adName}&${adVenta}&${adTag}&${adPrice}`
+    ).then(res => {
+        const adsF = res.data.results;
+        //console.log(adsF);
+        this.setState({ adsF });
+    }).catch(err => {console.log(err)})
+
+    }
+
+    render(){
+        const { adsF } = this.state;
+        return (
+
+            <div className="list-ads">
+                { adsF.map(ad => 
+                    <Link key={ad._id} to={`/detail/${ad._id}`}>
+                        <ul>
+                            <h4>{ad.name}</h4>
+                            <li>precio: {ad.price}</li>
+                            <li>desc: {ad.description}</li>
+                            <li>type: {ad.type}</li>
+                            <li>photo: {ad.photo}</li>
+                            <li>created: {ad.createdAt}</li>
+                            <li>updated: {ad.updatedAt}</li>
+                            <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                        </ul>
+                    </Link>
+                )}
+            </div>            
+        )
+
+    }
 }

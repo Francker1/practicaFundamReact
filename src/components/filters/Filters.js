@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
-//import { Link } from "react-router-dom";
-//import { hashHistory } from 'react-router';
-import {withRouter} from "react-router-dom";
-  
+import { withRouter } from "react-router-dom";
+import { TagsList, PriceList } from "../../services/constants/ads-data"
 export class Filter extends Component{
 
     state = {
-            name: "",
-            tag: "",
-            min: "",
-            max: "",
-            type: "true"
-        }
+        name: "",
+        tag: "",
+        min: "",
+        max: "",
+        type: ""
+    }
     
-
     handleChangeName    = ev => this.setState({ name: ev.target.value });
     handleChangeTag     = ev => this.setState({ tag: ev.target.value });
     handleChangeMin     = ev => this.setState({ min: ev.target.value});
@@ -26,12 +23,14 @@ export class Filter extends Component{
 
         this.props.history.push({
            pathname: '/filter',
-           search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&price=${this.state.min}-${this.state.max}`,
+           search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&pricemin=${this.state.min}&pricemax=${this.state.max}`,
         });
     }
+
     render(){
         return(
             <Container>
+                
                 <Row>
                 <Col className="mb-4"><h4>Filtrar anuncios</h4></Col>
                 </Row>
@@ -44,9 +43,7 @@ export class Filter extends Component{
                         <Form.Group as={Col}>
                             <Form.Label>Etiquetas</Form.Label>
                             <Form.Control name="tag" as="select" onChange={this.handleChangeTag}>
-                                <option>Selecciona un tag</option>
-                                <option>work</option>
-                                <option>lifestyle</option>
+                                <TagsList />
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
@@ -55,22 +52,14 @@ export class Filter extends Component{
                         <Form.Group as={Col}>
                             <Form.Label>Precio mín.</Form.Label>
                             <Form.Control as="select" onChange={this.handleChangeMin}>
-                                <option>0</option>
-                                <option>5</option>
-                                <option>10</option>
-                                <option>15</option>
-                                <option>20</option>
+                                <PriceList />
                             </Form.Control>
                         </Form.Group>
 
                         <Form.Group as={Col}>
                             <Form.Label>Precio máx.</Form.Label>
                             <Form.Control as="select" onChange={this.handleChangeMax}>
-                                <option>0</option>
-                                <option>5</option>
-                                <option>10</option>
-                                <option>15</option>
-                                <option>20</option>
+                                <PriceList />
                             </Form.Control>
                         </Form.Group>
 
