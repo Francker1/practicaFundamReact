@@ -24,8 +24,10 @@ export class Filter extends Component{
     handleSubmit = ev => {
         ev.preventDefault();
 
-        //this.props.history.push("/filter");
-        this.props.history.push("/filter");
+        this.props.history.push({
+           pathname: '/filter',
+           search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&price=${this.state.min}-${this.state.max}`,
+        });
     }
     render(){
         return(
@@ -105,14 +107,9 @@ export class Filter extends Component{
                         Filtrar
                     </Button>
 
-                    {/* <Link to={{ pathname: "/filter", search: `?name=${this.state.name}&venta=${this.state.type}&tag=${this.state.tag}&price=${this.state.min}-${this.state.max}` }}>Filtrar</Link> */}
                 </Form>
                 <hr/>
-
-            </Container>
-
-            
-            
+            </Container>            
         );
     }
 }

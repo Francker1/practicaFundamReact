@@ -63,9 +63,3 @@ function Front() {
         </div>
     );
 }
-
-function Welcome(){
-    return(
-        <h3>miau</h3>
-    );
-}
