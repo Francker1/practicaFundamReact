@@ -3,8 +3,9 @@ import Login from "../login/Login";
 import Register from "../register/Register";
 import Advertisments from "../ads/Ads";
 import AdDetail from "../ads/AdsDetail";
-import Filter from "../filters/Filters";
+import Filter from "../forms/Filters";
 import AdsFiltered from "../ads/AdsFiltered";
+import CreateAdForm from "../forms/CreateAd";
 
 import {
     BrowserRouter as Router,
@@ -49,6 +50,9 @@ export default class Home extends Component {
                         </Route>
                         <Route path={`/detail/:id`} component={AdDetail}/>
                         <Route path="/filter" component={AdsFiltered} />
+                        <Route path="/crear">
+                            <CreateAdForm />
+                        </Route>
                     </Switch>
                 </div>
             </Router>

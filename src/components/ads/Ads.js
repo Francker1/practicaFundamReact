@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {Container} from "react-bootstrap";
 import './Ads.css';
 
 export default class Advertisments extends Component {
@@ -24,23 +25,26 @@ export default class Advertisments extends Component {
     render() {
         const { ads } = this.state;
         return (
-
-            <div className="list-ads">
-                { ads.map(ad => 
-                    <Link key={ad._id} to={`/detail/${ad._id}`}>
-                        <ul>
-                            <h4>{ad.name}</h4>
-                            <li>precio: {ad.price}</li>
-                            <li>desc: {ad.description}</li>
-                            <li>type: {ad.type}</li>
-                            <li>photo: {ad.photo}</li>
-                            <li>created: {ad.createdAt}</li>
-                            <li>updated: {ad.updatedAt}</li>
-                            <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
-                        </ul>
-                    </Link>
-                )}
-            </div>            
+            <Container>
+                <Link to="/crear">Crear anuncio</Link>
+                <hr></hr>
+                <div className="list-ads">
+                    { ads.map(ad => 
+                        <Link key={ad._id} to={`/detail/${ad._id}`}>
+                            <ul>
+                                <h4>{ad.name}</h4>
+                                <li>precio: {ad.price}</li>
+                                <li>desc: {ad.description}</li>
+                                <li>type: {ad.type}</li>
+                                <li>photo: {ad.photo}</li>
+                                <li>created: {ad.createdAt}</li>
+                                <li>updated: {ad.updatedAt}</li>
+                                <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                            </ul>
+                        </Link>
+                    )}
+                </div>   
+            </Container>         
         )
     }
 }
