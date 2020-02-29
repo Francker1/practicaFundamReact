@@ -10,7 +10,7 @@ class CreateAdForm extends Component{
         name: "",
         photo: "",
         description: "",
-        tags: [],
+        tags: "",
         price: "",
         type: ""
     }
@@ -18,9 +18,23 @@ class CreateAdForm extends Component{
     handleChangeName           = ev => this.setState({ name: ev.target.value });
     handleChangePhoto          = ev => this.setState({ photo: ev.target.value });
     handleChangeDescription    = ev => this.setState({ description: ev.target.value });
-    handleChangeTag            = ev => this.setState({ tags: ev.target.value });
     handleChangePrice          = ev => this.setState({ price: ev.target.value});
     handleChangeType           = ev => this.setState({ type: ev.target.value });
+
+    handleChangeTag = ev => {
+       
+        const opts = ev.target.options;
+        let value = []
+
+        for (var i = 1, l = opts.length; i < l; i++) {
+            if (opts[i].selected) {
+                value.push(opts[i].value);
+            }
+        }
+
+        this.setState({tags:value})
+
+    }
 
     handleSubmit = ev => {
         ev.preventDefault();
@@ -32,7 +46,7 @@ class CreateAdForm extends Component{
             name: this.state.name,
             photo: this.state.photo,
             description: this.state.description,
-            tags: [this.state.tags],
+            tags: this.state.tags,
             price: parseInt(this.state.price),
             type: this.state.type
          }
