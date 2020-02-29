@@ -56,7 +56,7 @@ class EditAdForm extends Component{
             name: this.state.name,
             price: parseInt(this.state.price),
             description: this.state.desc,
-            tags: this.state.newTags,
+            tags: (this.state.newTags) ? this.state.newTags : this.state.tags,
             type: this.state.type,
             photo: this.state.photo
          }
