@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { TagsList } from "../../services/constants/ads-data";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-export default class CreateAdForm extends Component{
+class CreateAdForm extends Component{
 
     state = {
         name: "",
@@ -24,6 +25,8 @@ export default class CreateAdForm extends Component{
     handleSubmit = ev => {
         ev.preventDefault();
 
+        const {history} = this.props;
+
         axios.defaults.withCredentials = true;
         axios.post('http://34.89.93.186:8080/apiv1/anuncios', { 
             name: this.state.name,
@@ -35,6 +38,7 @@ export default class CreateAdForm extends Component{
          }
         ).then(res => {
             console.log(res);
+            history.push("/ads");
         }).catch(err => {console.log(err)})
 
     }
@@ -147,3 +151,5 @@ export default class CreateAdForm extends Component{
         );
     }
 }
+
+export default withRouter(CreateAdForm);
