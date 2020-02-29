@@ -40,6 +40,8 @@ export class Login extends Component{
             console.log(res);
             console.log(res.data);
             history.push("/ads");
+        }).catch(err => {
+            history.push("/registro");
         })
 
     }

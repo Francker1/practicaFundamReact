@@ -50,9 +50,7 @@ export default class Home extends Component {
                         <Route path={`/detail/:id`} component={AdDetail}/>
                         <Route path="/filter" component={AdsFiltered} />
                         <Route path="/crear" component={CreateAdForm} />
-                        <Route path="/editar" component={EditAdForm}>
-                            <EditAdForm />
-                        </Route>
+                        <Route path="/editar" component={EditAdForm} />
                     </Switch>
                 </div>
             </Router>
