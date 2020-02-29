@@ -6,6 +6,7 @@ import AdDetail from "../ads/AdsDetail";
 import Filter from "../forms/Filters";
 import AdsFiltered from "../ads/AdsFiltered";
 import CreateAdForm from "../forms/CreateAd";
+import EditAdForm from "../forms/EditAd";
 
 import {
     BrowserRouter as Router,
@@ -38,9 +39,7 @@ export default class Home extends Component {
                         <Route exact path="/">
                             <Front />
                         </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
+                        <Route path="/login" component={Login} />
                         <Route path="/registro">
                             <Register />
                         </Route>
@@ -50,9 +49,8 @@ export default class Home extends Component {
                         </Route>
                         <Route path={`/detail/:id`} component={AdDetail}/>
                         <Route path="/filter" component={AdsFiltered} />
-                        <Route path="/crear">
-                            <CreateAdForm />
-                        </Route>
+                        <Route path="/crear" component={CreateAdForm} />
+                        <Route path="/editar" component={EditAdForm} />
                     </Switch>
                 </div>
             </Router>

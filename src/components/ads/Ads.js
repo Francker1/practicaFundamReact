@@ -1,15 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {Container} from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import './Ads.css';
 
-export default class Advertisments extends Component {
+export class Advertisments extends Component {
     constructor(props){
         super(props);
         this.state = {
             ads: []
         }
+    }
+
+    navigateToEdit = (id, name, description, price, type, photo, tags) => {
+        const { history } = this.props;
+        history.push({
+            pathname: "/editar",
+            search: `?id=${id}`,
+            state: { 
+                name: name,
+                desc: description,
+                price: price,
+                type: type,
+                photo: photo,
+                tags: tags
+            }
+        });
     }
 
     componentDidMount = () => {
@@ -19,7 +36,9 @@ export default class Advertisments extends Component {
             const ads = res.data.results;
             //console.log(ads);
             this.setState({ ads });
-        }).catch(err => {console.log(err)})
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     render() {
@@ -30,21 +49,27 @@ export default class Advertisments extends Component {
                 <hr></hr>
                 <div className="list-ads">
                     { ads.map(ad => 
-                        <Link key={ad._id} to={`/detail/${ad._id}`}>
-                            <ul>
-                                <h4>{ad.name}</h4>
-                                <li>precio: {ad.price}</li>
-                                <li>desc: {ad.description}</li>
-                                <li>type: {ad.type}</li>
-                                <li>photo: {ad.photo}</li>
-                                <li>created: {ad.createdAt}</li>
-                                <li>updated: {ad.updatedAt}</li>
-                                <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
-                            </ul>
-                        </Link>
+                        <Fragment key={ad._id}>
+                            <Link  to={`/detail/${ad._id}`}>
+                                <ul>
+                                    <h4>{ad.name}</h4>
+                                    <li>precio: {ad.price}</li>
+                                    <li>desc: {ad.description}</li>
+                                    <li>type: {ad.type}</li>
+                                    <li>photo: {ad.photo}</li>
+                                    <li>created: {ad.createdAt}</li>
+                                    <li>updated: {ad.updatedAt}</li>
+                                    <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                                </ul>
+                            </Link>
+                            <button onClick={() => { this.navigateToEdit(ad._id, ad.name, ad.description, ad.price, ad.type, ad.photo, ad.tags)}}>Editar Anuncio</button>
+                            <hr></hr>
+                        </Fragment>
                     )}
                 </div>   
             </Container>         
         )
     }
 }
+
+export default withRouter(Advertisments);
