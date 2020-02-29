@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import  { Container, Button, Form } from 'react-bootstrap' ;
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
-export default class Login extends Component{
+export class Login extends Component{
 
     constructor(props){
         super(props);
@@ -28,6 +29,7 @@ export default class Login extends Component{
     
     handleSubmit = ev => {
         ev.preventDefault();
+        const {history} = this.props;
         const {username, password} = this.state;
 
         axios.post("http://34.89.93.186:8080/apiv1/login", {  
@@ -37,6 +39,9 @@ export default class Login extends Component{
         .then(res => {
             console.log(res);
             console.log(res.data);
+            history.push("/ads");
+        }).catch(err => {
+            history.push("/registro");
         })
 
     }
@@ -83,3 +88,5 @@ export default class Login extends Component{
         );
     }
 }
+
+export default withRouter(Login);

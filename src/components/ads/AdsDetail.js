@@ -10,23 +10,16 @@ export default class AdDetail extends Component{
     }
 
     componentDidMount = () => {
-        this.getAdvertismentData();
-    }
-
-    componentDidUpdate = (prevProps) => {
-        if(prevProps.match.params.id !== this.props.match.params.id){
-            this.getAdvertismentData();
-        }
-    }
-
-    getAdvertismentData = () => {
+        const {match: {params}} = this.props;
+        
         axios.defaults.withCredentials = true;
-        axios.get(`http://34.89.93.186:8080/apiv1/anuncios/${this.props.match.params.id}`
+        axios.get(`http://34.89.93.186:8080/apiv1/anuncios/${params.id}`
         ).then(res => {
         const ad = res.data.result;
         this.setState({ad:ad})
         }).catch(err => {console.log(err)})
     }
+
     
     render(){
         const { ad } = this.state;
