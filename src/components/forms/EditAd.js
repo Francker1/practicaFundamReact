@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { TagsList } from "../../services/constants/ads-data";
-//import axios from "axios";
+import { withRouter } from "react-router-dom";
+import axios from "axios";
 
-export default class EditAdForm extends Component{
+class EditAdForm extends Component{
 
     constructor(props){
         super(props);
@@ -11,8 +12,6 @@ export default class EditAdForm extends Component{
         const params = new URLSearchParams(window.location.search);
         const { name, desc, price, type, photo, tags } = this.props.location.state;
 
-        console.log(tags);
-    
         this.state = {
             id: params.get("id"),
             name: name,
@@ -21,23 +20,21 @@ export default class EditAdForm extends Component{
             type: type,
             photo: photo,
             tags: [tags],
-            newTags: []
+            newTags: ""
         }
     }
 
     
-    handleUpdateName = ev => this.setState( {name:ev.target.value} );
-    handleUpdatePhoto = ev => this.setState({photo:ev.target.value});
-    handleUpdateDesc = ev => this.setState({desc:ev.target.value});
-    handleUpdatePrice = ev => this.setState({price:ev.target.value});
-    handleUpdateType = ev => this.setState({type:ev.target.value});
-    //handleUpdateTag = ev => this.setState({tags:[ev.target.options]});
+    handleUpdateName = ev => this.setState( { name:ev.target.value } );
+    handleUpdatePhoto = ev => this.setState({ photo:ev.target.value });
+    handleUpdateDesc = ev => this.setState({ desc:ev.target.value });
+    handleUpdatePrice = ev => this.setState({ price:ev.target.value });
+    handleUpdateType = ev => this.setState({ type:ev.target.value });
+
     handleUpdateTag = ev => {
        
         const opts = ev.target.options;
         let value = []
-
-        //console.log(opts)
 
         for (var i = 1, l = opts.length; i < l; i++) {
             if (opts[i].selected) {
@@ -45,11 +42,28 @@ export default class EditAdForm extends Component{
             }
         }
 
+        this.setState({newTags:value})
 
-          //console.log(value)
+    }
+    
+    handleSubmit = ev => {
+        ev.preventDefault();
 
-          this.setState({newTags:value})
+        const {history} = this.props;
 
+        axios.defaults.withCredentials = true;
+        axios.put(`http://34.89.93.186:8080/apiv1/anuncios/${this.state.id}`, { 
+            name: this.state.name,
+            price: parseInt(this.state.price),
+            description: this.state.desc,
+            tags: this.state.newTags,
+            type: this.state.type,
+            photo: this.state.photo
+         }
+        ).then(res => {
+            console.log(res);
+            history.push("/ads");
+        }).catch(err => {console.log(err)})
     }
 
 
@@ -148,9 +162,15 @@ export default class EditAdForm extends Component{
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
+
+                    <Button variant="info" type="submit" size="lg" className="col my-4">
+                        Actualizar
+                    </Button>
                 </Form>
                
             </Container>  
         );
     }
 }
+
+export default withRouter(EditAdForm);
