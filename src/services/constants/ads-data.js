@@ -11,8 +11,9 @@ export class TagsList extends Component {
     axios.defaults.withCredentials = true;
     axios.get(`http://34.89.93.186:8080/apiv1/tags`)
       .then(res => {
-        const tags = res.data.results;
-        this.setState({ tags });
+        const tagsResponse = res.data.results;
+      
+        this.setState({ tags: tagsResponse.filter(tag => tag !== null) });
       })
   }
 
@@ -33,28 +34,38 @@ export class PriceList extends Component {
     state = {
         prices: []
     }
-    
-      componentDidMount = () => {
-        axios.defaults.withCredentials = true;
-        axios.get(`http://34.89.93.186:8080/apiv1/anuncios`)
-          .then(res => {
-            const prices = res.data.results;
-            this.setState({ prices });
-          })
-      }
-    
-      render() {
-        const { prices } = this.state;
-        const dateForFilter = [...new Set(prices)];
 
-        return (
-          <>
-           {dateForFilter.sort().map(p =>
-                <option key={p._id} value={p.price}>{p.price}</option>
-            )}
-          </>
-        
-        );
-      }
+    sortNumber(a, b) {
+      return a - b;
+    }
+    
+    componentDidMount = () => {
+      const sortedPrices = []
+
+      axios.defaults.withCredentials = true;
+      axios.get(`http://34.89.93.186:8080/apiv1/anuncios`)
+        .then(res => {
+          const pricesResp = res.data.results;
+
+          /** remove duplicateds prices and sort */
+          pricesResp.map(pricesResp => sortedPrices.push(pricesResp.price));
+
+          const dataForSort= [...new Set(sortedPrices)];
+          this.setState({ prices: dataForSort.sort(this.sortNumber) });
+        })
+    }
+  
+    render() {
+      const { prices } = this.state;
+      
+      return (
+        <>
+          {prices.map(p =>
+              <option key={p} value={p}>{p}</option>
+          )}
+        </>
+      
+      );
+    }
 
 }

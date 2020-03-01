@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import  { Container, Button, Form } from 'react-bootstrap' ;
+import  { Container, Form } from 'react-bootstrap' ;
+import { withRouter } from "react-router-dom";
+import { FormButton } from "../common/buttons/btn";
 
-export default class Register extends Component{
+class Register extends Component{
 
     constructor(props){
         super(props);
@@ -26,6 +28,7 @@ export default class Register extends Component{
     
     handleSubmit = ev => {
         ev.preventDefault();
+        const {history} = this.props;
         const {username, password} = this.state;
 
         axios.post("http://34.89.93.186:8080/apiv1/register", {  
@@ -35,6 +38,7 @@ export default class Register extends Component{
         .then(res => {
             console.log(res);
             console.log(res.data);
+            history.push("/ads");
         })
 
     }
@@ -43,7 +47,7 @@ export default class Register extends Component{
     render(){
         const { username, password } = this.state;
         return(
-            <Container>
+            <Container className="mt-5">
                 <Form onSubmit={this.handleSubmit}>
                     <div>
                         <h2>Registro</h2>
@@ -68,11 +72,13 @@ export default class Register extends Component{
                             onChange={this.handlePassChange}
                         />
                     </Form.Group>
-                    <Button variant="secondary" type="submit">
+                    <FormButton type="submit">
                         Registrarse
-                    </Button>
+                    </FormButton>
                 </Form>
             </Container>
         );
     }
 }
+
+export default withRouter(Register);

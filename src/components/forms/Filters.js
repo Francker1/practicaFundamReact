@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Form, Col, Button } from "react-bootstrap";
+import { Container, Row, Form, Col } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { TagsList, PriceList } from "../../services/constants/ads-data"
+import { FormButton } from "../common/buttons/btn";
+
 export class Filter extends Component{
 
     state = {
@@ -29,10 +31,10 @@ export class Filter extends Component{
 
     render(){
         return(
-            <Container>
+            <Container className="mt-5">
                 
                 <Row>
-                <Col className="mb-4"><h4>Filtrar anuncios</h4></Col>
+                    <Col className="mb-4"><h4>Filtrar anuncios</h4></Col>
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
@@ -92,9 +94,9 @@ export class Filter extends Component{
                         </Form.Group>
                     </Form.Row>
 
-                    <Button variant="info" type="submit" size="lg" className="col my-4">
+                    <FormButton type="submit" className="col my-4">
                         Filtrar
-                    </Button>
+                    </FormButton>
 
                 </Form>
                 <hr/>
