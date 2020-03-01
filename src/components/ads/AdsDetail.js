@@ -12,21 +12,27 @@ class AdDetail extends Component{
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         const {match: {params}} = this.props;
+
+        const { history } = this.props;
+
         
         axios.defaults.withCredentials = true;
-        axios.get(`http://34.89.93.186:8080/apiv1/anuncios/${params.id}`
+        await axios.get(`http://34.89.93.186:8080/apiv1/anuncios/${params.id}`
         ).then(res => {
         const ad = res.data.result;
         this.setState({ad:ad})
-        }).catch(err => {console.log(err)})
+        }).catch(err => {
+            alert(`No se ha podido recuperar los anuncios, pillín, loguéate`);
+            history.push("/login");
+        })
     }
 
     Back = () => {
         const {history} = this.props;
         history.goBack();
-      }
+    }
     
     render(){
         const { ad } = this.state;

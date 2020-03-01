@@ -27,23 +27,21 @@ class Login extends Component{
         });
     }
     
-    handleSubmit = ev => {
+    handleSubmit = async (ev) => {
         ev.preventDefault();
         const {history} = this.props;
         const {username, password} = this.state;
 
-        axios.post("http://34.89.93.186:8080/apiv1/login", {  
+        await axios.post("http://34.89.93.186:8080/apiv1/login", {  
             username: username,
             password: password
         })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
+        .then(() => {
             history.push("/ads");
         }).catch(err => {
+            alert(`Usuario no encontrado || ${err.response.data.error}`);
             history.push("/registro");
         })
-
     }
 
     render(){
