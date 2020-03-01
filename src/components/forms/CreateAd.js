@@ -38,13 +38,13 @@ class CreateAdForm extends Component{
 
     }
 
-    handleSubmit = ev => {
+    handleSubmit = async ev => {
         ev.preventDefault();
 
         const {history} = this.props;
 
         axios.defaults.withCredentials = true;
-        axios.post('http://34.89.93.186:8080/apiv1/anuncios', { 
+        await axios.post('http://34.89.93.186:8080/apiv1/anuncios', { 
             name: this.state.name,
             photo: this.state.photo,
             description: this.state.description,
@@ -52,10 +52,12 @@ class CreateAdForm extends Component{
             price: parseInt(this.state.price),
             type: this.state.type
          }
-        ).then(res => {
-            console.log(res);
+        ).then(() => {
             history.push("/ads");
-        }).catch(err => {console.log(err)})
+        }).catch(err => {
+            alert(`no se ha guardado tu anuncio, lo sentimos, ${err}`);
+            history.push("/crear");
+        })
 
     }
 
@@ -133,7 +135,7 @@ class CreateAdForm extends Component{
                                 name="price" 
                                 type="number" 
                                 min="0"
-                                placeholder="¿Por cuánto lo vendes?" 
+                                placeholder="¿Por cuánto lo vendes o lo compras?" 
                                 onChange={this.handleChangePrice}
                             />
                         </Form.Group>
