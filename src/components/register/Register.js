@@ -26,19 +26,20 @@ class Register extends Component{
         })
     }
     
-    handleSubmit = ev => {
+    handleSubmit = async ev => {
         ev.preventDefault();
         const {history} = this.props;
         const {username, password} = this.state;
 
-        axios.post("http://34.89.93.186:8080/apiv1/register", {  
+        await axios.post("http://34.89.93.186:8080/apiv1/register", {  
             username: username,
             password: password 
         })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
+        .then(() => {
             history.push("/ads");
+        }).catch(() => {
+            alert("Algo salió mal, vuelve a intentarlo. Lo Sentimos!!");
+            history.push("/registro");
         })
 
     }

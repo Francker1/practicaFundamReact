@@ -47,13 +47,13 @@ class EditAdForm extends Component{
 
     }
     
-    handleSubmit = ev => {
+    handleSubmit = async ev => {
         ev.preventDefault();
 
         const {history} = this.props;
 
         axios.defaults.withCredentials = true;
-        axios.put(`http://34.89.93.186:8080/apiv1/anuncios/${this.state.id}`, { 
+        await axios.put(`http://34.89.93.186:8080/apiv1/anuncios/${this.state.id}`, { 
             name: this.state.name,
             price: parseInt(this.state.price),
             description: this.state.desc,
@@ -61,10 +61,12 @@ class EditAdForm extends Component{
             type: this.state.type,
             photo: this.state.photo
          }
-        ).then(res => {
-            console.log(res);
+        ).then(() => {
             history.push("/ads");
-        }).catch(err => {console.log(err)})
+        }).catch(err => {
+            alert(`no se ha guardado tu cambio, lo sentimos. ${err}` );
+            history.push("/editar");
+        })
     }
 
     Back = () => {
@@ -153,7 +155,7 @@ class EditAdForm extends Component{
                                 type="number" 
                                 min="0"
                                 value={price}
-                                placeholder="¿Por cuánto lo vendes?" 
+                                placeholder="¿Por cuánto lo vendes o lo compras?" 
                                 onChange={this.handleUpdatePrice}
                             />
                         </Form.Group>
