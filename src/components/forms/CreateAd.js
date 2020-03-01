@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import { Container, Row, Form, Col, Button } from "react-bootstrap";
+import { Container, Row, Form, Col } from "react-bootstrap";
 import { TagsList } from "../../services/constants/ads-data";
 import { withRouter } from "react-router-dom";
+import { FormButton } from "../common/buttons/btn";
+
 import axios from "axios";
 
 class CreateAdForm extends Component{
@@ -57,12 +59,22 @@ class CreateAdForm extends Component{
 
     }
 
+    Back = () => {
+        const {history} = this.props;
+        history.goBack();
+      }
 
     render(){
         return(
             <Container>
                 <Row>
-                <Col className="mb-4"><h4>Crear anuncio</h4></Col>
+                    <Col>
+                        <button onClick={this.Back}>Volver</button>
+                    </Col>
+                </Row>
+
+                <Row className="my-5">
+                <Col><h4>Crear anuncio</h4></Col>
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
@@ -155,9 +167,9 @@ class CreateAdForm extends Component{
                         </Form.Group>
                     </Form.Row>
 
-                    <Button variant="info" type="submit" size="lg" className="col my-4">
+                    <FormButton type="submit">
                         Crear
-                    </Button>
+                    </FormButton>
 
                 </Form>
                 <hr/>

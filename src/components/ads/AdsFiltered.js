@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Container, Card, Row, Col} from "react-bootstrap";
+
 import './Ads.css';
 
 
@@ -33,34 +34,117 @@ export default class AdsFiltered extends Component {
 
     }
 
+    Back = () => {
+        const {history} = this.props;
+        history.goBack();
+    }
+
     render(){
         const { adsF } = this.state;
         return (
 
-            <div className="list-ads">
+            <Container>
+            <Row>
+                <Col>
+                    <button onClick={this.Back}>Volver</button>
+                </Col>
+            </Row>
+            <hr></hr>
+            <Row>
                 { adsF.map(ad => 
-                    <Link key={ad._id} to={`/detail/${ad._id}`}>
-                        <ul>
-                            <h4>{ad.name}</h4>
-                            <li>precio: {ad.price}</li>
-                            <li>desc: {ad.description}</li>
-                            <li>type: {ad.type}</li>
-                            <li>photo: {ad.photo}</li>
-                            <li>created: {ad.createdAt}</li>
-                            <li>updated: {ad.updatedAt}</li>
-                            <ul>tags:
-                            { ad.tags && ad.tags.map(tag => (
-                                <li key={tag}>
-                                    <span>{tag}</span>
-                                </li>
-                                ))
-                            }
-                            </ul>
-                        </ul>
-                    </Link>
-                )}
-            </div>            
+                    <Col key={ad._id} className="col-12 col-sm-6 col-lg-4 mb-4" >
+                        <Card onClick={() => {this.navigateToDetail(ad._id)}}>
+                            <Card.Img className="img-card" variant="top" src={ad.photo} />
+                            <Card.Body>
+                                <Card.Title>{ad.name}</Card.Title>
+                                <Card.Text as={"div"}>
+                                    <dl>
+                                        <dt>Precio: {ad.price} €</dt>
+
+                                        <dt>Desc:</dt>
+                                        <dd>{ad.description}</dd>
+
+                                        <dt>Tipo:</dt>
+                                        <dd>{ad.type}</dd>
+
+                                        <dt>Tags:</dt>
+                                        { ad.tags && ad.tags.map(tag => (
+                                            <dd key={tag}>
+                                                {tag}
+                                            </dd>
+                                        ))
+                                        }
+
+                                        <dt>created:</dt>
+                                        <dd>created: {ad.createdAt}</dd>
+                                    </dl>
+                                </Card.Text>
+                                <Card.Footer>
+                                    <small className="text-muted">Última actualización: {ad.updatedAt}</small>
+                                </Card.Footer>
+                            </Card.Body>
+                            
+                        </Card>
+                    </Col>
+                )}          
+            </Row>
+        </Container>    
+ 
         )
 
     }
 }
+
+/**
+ * 
+ <Container>
+                <Row>
+                    <Col>
+                        <Link className="create-link" to="/crear">Crear anuncio</Link>
+                    </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                    { ads.map(ad => 
+                        <Col key={ad._id} className="col-12 col-sm-6 col-lg-4 mb-4" >
+                            <Card onClick={() => {this.navigateToDetail(ad._id)}}>
+                                <Card.Img className="img-card" variant="top" src={ad.photo} />
+                                <Card.Body>
+                                    <Card.Title>{ad.name}</Card.Title>
+                                    <Card.Text>
+                                        <dl>
+                                            <dt>Precio: {ad.price} €</dt>
+
+                                            <dt>Desc:</dt>
+                                            <dd>{ad.description}</dd>
+
+                                            <dt>Tipo:</dt>
+                                            <dd>{ad.type}</dd>
+
+                                            <dt>Tags:</dt>
+                                            { ad.tags && ad.tags.map(tag => (
+                                                <dd key={tag}>
+                                                    {tag}
+                                                </dd>
+                                            ))
+                                            }
+
+                                            <dt>created:</dt>
+                                            <dd>created: {ad.createdAt}</dd>
+                                        </dl>
+                                    </Card.Text>
+                                    <Card.Footer>
+                                        <small className="text-muted">Última actualización: {ad.updatedAt}</small>
+                                    </Card.Footer>
+                                </Card.Body>
+                                
+                            </Card>
+
+                            <button className="btn-edit" onClick={() => { this.navigateToEdit(ad._id, ad.name, ad.description, ad.price, ad.type, ad.photo, ad.tags)}}>Editar Anuncio</button>
+                        </Col>
+                    )}          
+                </Row>
+            </Container>    
+
+
+ */

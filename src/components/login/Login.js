@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import  { Container, Button, Form } from 'react-bootstrap' ;
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
+import  { Container, Form } from 'react-bootstrap' ;
+import { Link, withRouter } from "react-router-dom";
+import { FormButton } from "../common/buttons/btn";
 
 
-export class Login extends Component{
+class Login extends Component{
 
     constructor(props){
         super(props);
@@ -49,7 +49,7 @@ export class Login extends Component{
     render(){
         const { username, password } = this.state;
         return(
-            <Container>
+            <Container className="mt-5">
                 <Form onSubmit={this.handleSubmit}>
                     <div>
                         <h2>Login</h2>
@@ -74,9 +74,9 @@ export class Login extends Component{
                             onChange={this.handlePassChange}
                          />
                     </Form.Group>
-                    <Button variant="secondary" type="submit">
+                    <FormButton type="submit">
                         Login
-                    </Button>
+                    </FormButton>
                 </Form>
 
                 <div>
