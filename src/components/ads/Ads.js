@@ -34,7 +34,6 @@ export class Advertisments extends Component {
         axios.get('http://34.89.93.186:8080/apiv1/anuncios'
         ).then(res => {
             const ads = res.data.results;
-            //console.log(ads);
             this.setState({ ads });
         }).catch(err => {
             console.log(err)
@@ -59,7 +58,14 @@ export class Advertisments extends Component {
                                     <li>photo: {ad.photo}</li>
                                     <li>created: {ad.createdAt}</li>
                                     <li>updated: {ad.updatedAt}</li>
-                                    <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                                    <ul>tags:
+                                    { ad.tags && ad.tags.map(tag => (
+                                        <li key={tag}>
+                                            <span>{tag}</span>
+                                        </li>
+                                        ))
+                                    }
+                                    </ul>
                                 </ul>
                             </Link>
                             <button onClick={() => { this.navigateToEdit(ad._id, ad.name, ad.description, ad.price, ad.type, ad.photo, ad.tags)}}>Editar Anuncio</button>

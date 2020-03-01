@@ -23,23 +23,25 @@ export default class AdDetail extends Component{
     
     render(){
         const { ad } = this.state;
-        const tags = ad.tags;
-        let tagsJoined;
-
-        if(tags){
-            tagsJoined = tags.join(", ");
-        }
-        
+                
         return(
-            <ul>
+            <>
                 <h3>{ad.name}</h3>
                 <p>Precio: {ad.price}</p>
                 <p>desc: {ad.description}</p>
                 <p>tipo: {ad.type}</p>
                 <p>img: {ad.photo}</p>
                 <p>fecha anuncio: {ad.createdAt}</p>
-                <p>tags: {tagsJoined}</p>
-            </ul>
+                <p>tags:</p>
+                <ul>
+                { ad.tags && ad.tags.map(tag => (
+                    <li key={tag}>
+                        <span>{tag}</span>
+                    </li>
+                    ))
+                }
+                </ul>
+            </>
         );
     }
 }

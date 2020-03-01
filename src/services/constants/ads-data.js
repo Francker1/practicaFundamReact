@@ -11,8 +11,9 @@ export class TagsList extends Component {
     axios.defaults.withCredentials = true;
     axios.get(`http://34.89.93.186:8080/apiv1/tags`)
       .then(res => {
-        const tags = res.data.results;
-        this.setState({ tags });
+        const tagsResponse = res.data.results;
+      
+        this.setState({ tags: tagsResponse.filter(tag => tag !== null) });
       })
   }
 

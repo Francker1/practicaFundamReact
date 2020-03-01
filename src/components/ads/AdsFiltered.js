@@ -15,22 +15,21 @@ export default class AdsFiltered extends Component {
 
     componentDidMount = () => {
 
-    const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
-    const adName = (params.get("name")) ? `name=${params.get("name")}` : "" ;
-    const adVenta = (params.get("venta")) ? `venta=${params.get("venta")}` : "" ;
-    const adTag = (params.get("tag")) ? `tag=${params.get("tag")}` : "" ;
-    const adPrice = (params.get("pricemin")) || (params.get("pricemax")) ? `price=${params.get("pricemin")}-${params.get("pricemax")}` : "";
+        const adName = (params.get("name")) ? `name=${params.get("name")}` : "" ;
+        const adVenta = (params.get("venta")) ? `venta=${params.get("venta")}` : "" ;
+        const adTag = (params.get("tag")) ? `tag=${params.get("tag")}` : "" ;
+        const adPrice = (params.get("pricemin")) || (params.get("pricemax")) ? `price=${params.get("pricemin")}-${params.get("pricemax")}` : "";
 
-    axios.defaults.withCredentials = true;
+        axios.defaults.withCredentials = true;
 
-    
-    axios.get(`http://34.89.93.186:8080/apiv1/anuncios?${adName}&${adVenta}&${adTag}&${adPrice}`
-    ).then(res => {
-        const adsF = res.data.results;
-        //console.log(adsF);
-        this.setState({ adsF });
-    }).catch(err => {console.log(err)})
+        
+        axios.get(`http://34.89.93.186:8080/apiv1/anuncios?${adName}&${adVenta}&${adTag}&${adPrice}`
+        ).then(res => {
+            const adsF = res.data.results;
+            this.setState({ adsF });
+        }).catch(err => {console.log(err)})
 
     }
 
@@ -49,7 +48,14 @@ export default class AdsFiltered extends Component {
                             <li>photo: {ad.photo}</li>
                             <li>created: {ad.createdAt}</li>
                             <li>updated: {ad.updatedAt}</li>
-                            <li>tags: {ad.tags.map(tag => `${tag}, `)}</li>
+                            <ul>tags:
+                            { ad.tags && ad.tags.map(tag => (
+                                <li key={tag}>
+                                    <span>{tag}</span>
+                                </li>
+                                ))
+                            }
+                            </ul>
                         </ul>
                     </Link>
                 )}
