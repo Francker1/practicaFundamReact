@@ -45,4 +45,3 @@ export default class AdDetail extends Component{
         );
     }
 }
-
