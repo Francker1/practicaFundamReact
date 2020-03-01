@@ -1,0 +1,28 @@
+
+header.header {
+    height: calc(100vh - 70px);
+    background-color: #26303C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.header > .header__title {
+    color: #f9fafb;
+    z-index: 5;
+}
+
+.header > .header__title > h1 {
+    font-size: 4rem;
+}
+
+.header__title  a{
+    color: #ef5466;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.header__title a:hover{
+    color: #FFEAD0;
+}

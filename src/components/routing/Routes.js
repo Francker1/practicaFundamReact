@@ -49,8 +49,7 @@ export default class Home extends Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <div>
-                    <hr />
+              
                     <Switch>
                         <Route exact path="/" component={Front} />
                         <Route path="/login" component={Login} />
@@ -64,7 +63,7 @@ export default class Home extends Component {
                         <Route path="/crear" component={CreateAdForm} />
                         <Route path="/editar" component={EditAdForm} />
                     </Switch>
-                </div>
+                    
             </Router>
         );
     }
