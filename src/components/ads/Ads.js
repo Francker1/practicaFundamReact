@@ -65,7 +65,7 @@ export class Advertisments extends Component {
                                 <Card.Img className="img-card" variant="top" src={ad.photo} />
                                 <Card.Body>
                                     <Card.Title>{ad.name}</Card.Title>
-                                    <Card.Text>
+                                    <Card.Text as={"div"}>
                                         <dl>
                                             <dt>Precio: {ad.price} €</dt>
 

@@ -1,6 +1,11 @@
 
+.container-fluid,
+.menu{
+    background-color: #26303C;
+}
+
 header.header {
-    height: calc(100vh - 70px);
+    height: 100vh;
     background-color: #26303C;
     display: flex;
     justify-content: center;
