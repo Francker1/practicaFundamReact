@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Front from "../common/home/Home";
 import Login from "../login/Login";
 import Register from "../register/Register";
 import Advertisments from "../ads/Ads";
@@ -8,6 +10,8 @@ import AdsFiltered from "../ads/AdsFiltered";
 import CreateAdForm from "../forms/CreateAd";
 import EditAdForm from "../forms/EditAd";
 
+import styled from 'styled-components';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -15,34 +19,42 @@ import {
     Link
   } from "react-router-dom";
 
+import {Navbar, Nav } from "react-bootstrap";
+
+
+const StyledLink = styled(Link)`
+    color: palevioletred;
+	font-size: 1.25em;
+	margin: .5em;
+    
+    :hover{
+        text-decoration: none;
+        color: #FFEAD0;
+    }
+`;
+
 export default class Home extends Component {
     render(){
         return (
             <Router>
+                <Navbar className="menu" collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <StyledLink to="/">KeepAds</StyledLink>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto"></Nav>
+                        <Nav>
+                            <StyledLink to="/login">Login</StyledLink>
+                            <StyledLink to="/registro">Registro</StyledLink>
+                            <StyledLink to="/ads">Anuncios</StyledLink>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
                 <div>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/registro">Registro</Link>
-                        </li>
-                        <li>
-                            <Link to="/ads">Anuncios</Link>
-                        </li>
-                    </ul>
                     <hr />
                     <Switch>
-                        <Route exact path="/">
-                            <Front />
-                        </Route>
+                        <Route exact path="/" component={Front} />
                         <Route path="/login" component={Login} />
-                        <Route path="/registro">
-                            <Register />
-                        </Route>
+                        <Route path="/registro" component={Register}/>
                         <Route path="/ads">
                             <Filter />
                             <Advertisments />
@@ -56,12 +68,4 @@ export default class Home extends Component {
             </Router>
         );
     }
-}
-
-function Front() {
-    return (
-        <div>
-        <h2>Home</h2>
-        </div>
-    );
 }
