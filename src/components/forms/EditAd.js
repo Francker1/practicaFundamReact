@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Container, Row, Form, Col, Button } from "react-bootstrap";
+import { Container, Row, Form, Col } from "react-bootstrap";
 import { TagsList } from "../../services/constants/ads-data";
 import { withRouter } from "react-router-dom";
+import { FormButton } from "../common/buttons/btn";
 import axios from "axios";
 
 class EditAdForm extends Component{
@@ -66,6 +67,10 @@ class EditAdForm extends Component{
         }).catch(err => {console.log(err)})
     }
 
+    Back = () => {
+        const {history} = this.props;
+        history.goBack();
+    }
 
     render(){
 
@@ -78,8 +83,13 @@ class EditAdForm extends Component{
         return(
             <Container>
                 <Row>
-                    <Col className="mb-2 col-12"><h3>Editar: {this.state.name}</h3></Col>
-                    <Col className="mb-4 col-12"><p>Tags actuales: {tagsJoined}</p></Col>
+                    <Col>
+                        <button onClick={this.Back}>Volver</button>
+                    </Col>
+                </Row>
+                <Row className="mt-5 mb-3">
+                    <Col className="col-12"><h3>Editar: {this.state.name}</h3></Col>
+                    <Col className="col-12"><p>Tags actuales: {tagsJoined}</p></Col>
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
@@ -163,9 +173,9 @@ class EditAdForm extends Component{
                         </Form.Group>
                     </Form.Row>
 
-                    <Button variant="info" type="submit" size="lg" className="col my-4">
+                    <FormButton type="submit">
                         Actualizar
-                    </Button>
+                    </FormButton>
                 </Form>
                
             </Container>  

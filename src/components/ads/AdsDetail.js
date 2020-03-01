@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import {Container, Row, Col, Image} from "react-bootstrap";
+import {withRouter} from "react-router-dom";
+
 import axios from "axios";
 
-export default class AdDetail extends Component{
+class AdDetail extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -20,27 +23,49 @@ export default class AdDetail extends Component{
         }).catch(err => {console.log(err)})
     }
 
+    Back = () => {
+        const {history} = this.props;
+        history.goBack();
+      }
     
     render(){
         const { ad } = this.state;
-        const tags = ad.tags;
-        let tagsJoined;
-
-        if(tags){
-            tagsJoined = tags.join(", ");
-        }
-        
+                
         return(
-            <ul>
-                <h3>{ad.name}</h3>
-                <p>Precio: {ad.price}</p>
-                <p>desc: {ad.description}</p>
-                <p>tipo: {ad.type}</p>
-                <p>img: {ad.photo}</p>
-                <p>fecha anuncio: {ad.createdAt}</p>
-                <p>tags: {tagsJoined}</p>
-            </ul>
+            <Container>
+                <Row>
+                    <Col>
+                        <button onClick={this.Back}>Volver</button>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col className="mt-5">
+                        <h2>{ad.name}</h2>
+                        <Image src={ad.photo} fluid />
+
+                        <dl>
+                            <dt>Precio: {ad.price} €</dt>
+
+                            <dt>Desc:</dt>
+                            <dd>{ad.description}</dd>
+
+                            <dt>Tipo:</dt>
+                            <dd>{ad.type}</dd>
+
+                            <dt>Tags:</dt>
+                            { ad.tags && ad.tags.map(tag => (
+                                <dd key={tag}>
+                                    <span>{tag}</span>
+                                </dd>
+                            ))
+                        }
+                        </dl>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
 
+export default withRouter(AdDetail);
