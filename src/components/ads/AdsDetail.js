@@ -63,7 +63,6 @@ class AdDetail extends Component{
                         </dl>
                     </Col>
                 </Row>
-                
             </Container>
         );
     }
