@@ -14,6 +14,9 @@ class AdDetail extends Component{
 
     componentDidMount = async () => {
         const {match: {params}} = this.props;
+
+        const { history } = this.props;
+
         
         axios.defaults.withCredentials = true;
         await axios.get(`http://34.89.93.186:8080/apiv1/anuncios/${params.id}`
@@ -21,7 +24,8 @@ class AdDetail extends Component{
         const ad = res.data.result;
         this.setState({ad:ad})
         }).catch(err => {
-            alert(`No se ha podido recuperar los anuncios, vuelve a intentarlo ${err}`);
+            alert(`No se ha podido recuperar los anuncios, pillín, loguéate`);
+            history.push("/login");
         })
     }
 
