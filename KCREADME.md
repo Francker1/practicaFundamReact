@@ -18,4 +18,4 @@ En la pantalla de **"/ads"** también podemos filtrar y crear anuncio, para crea
 
 En el caso del filtrado, como comentaba, para solventar un error, lo tuve que llevar a **"/filter"** y ahí construir la consulta, para poder hacer filtros combinados, esto me pareció un reto, al igual que para el select del precio, quise obtener todos los precios disponibles y crear un array con dos condiciones: que no haya precios repetidos, y que estén ordenados de menor a mayor. 
 
-Disfrutad de KeepAds y sus cosas random!!
+Disfrutad de KeepAds y sus cosas random!!!!!
